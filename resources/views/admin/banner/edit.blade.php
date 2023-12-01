@@ -11,7 +11,7 @@
         <div class="col p-md-0">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">Team Edit</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Banner Edit</a></li>
             </ol>
         </div>
     </div>
