@@ -310,7 +310,6 @@
                                               <td>
                                                   Active
                                               </td>
-                                              <td><i class="fa fa-circle-o text-success  mr-2"></i> Paid</td>
                                               <td>
                                                   {{ $item->pm_last_four }}
                                               </td>
