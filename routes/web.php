@@ -11,6 +11,7 @@ use App\Http\Controllers\admin\FoodCategoryController;
 use App\Http\Controllers\admin\MenuController;
 use App\Http\Controllers\admin\PageController;
 use App\Http\Controllers\admin\BlogController;
+use App\Http\Controllers\PlanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,12 @@ use App\Http\Controllers\admin\BlogController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::middleware("auth")->group(function () {
+    Route::get('plans', [PlanController::class, 'index']);
+    Route::get('plans/{plan}', [PlanController::class, 'show'])->name("plans.show");
+    Route::post('subscription', [PlanController::class, 'subscription'])->name("subscription.create");
+});
 
 Route::prefix('/')->group(function () {
     Route::get('/',[FrontController::class,'index'])->name('index');
@@ -36,7 +43,7 @@ Route::prefix('/')->group(function () {
     Route::get('/team',[FrontController::class,'team'])->name('team');
 });
 
-Route::prefix('/admins')->name('admin.')->middleware(['auth'])->group(function () {
+Route::prefix('/admins')->name('admin.')->middleware(['auth','admin'])->group(function () {
     Route::get('/',[AdminController::class,'index'])->name('index');
 
     Route::prefix('/team')->name('team.')->group(function () {
@@ -46,6 +53,21 @@ Route::prefix('/admins')->name('admin.')->middleware(['auth'])->group(function (
         Route::get('/edit/{id}',[TeamController::class,'edit'])->name('edit');
         Route::post('/update/{id}',[TeamController::class,'update'])->name('update');
         Route::get('/delete/{id}',[TeamController::class,'destroy'])->name('delete');
+    });
+
+    Route::prefix('/plans')->name('plan.')->group(function () {
+        Route::get('/',[PlanController::class,'plan_index'])->name('index');
+        Route::get('/add',[PlanController::class,'plan_create'])->name('add');
+        Route::post('/store',[PlanController::class,'plan_store'])->name('store');
+        Route::get('/edit/{id}',[PlanController::class,'plan_edit'])->name('edit');
+        Route::post('/update/{id}',[PlanController::class,'plan_update'])->name('update');
+        Route::get('/delete/{id}',[PlanController::class,'plan_destroy'])->name('delete');
+    });
+
+    Route::prefix('/payment-getaway')->name('payment.')->group(function () {
+        Route::get('/',[PlanController::class,'admin_index'])->name('index');
+        Route::get('/edit/{id}',[PlanController::class,'admin_edit'])->name('edit');
+        Route::post('/update/{id}',[PlanController::class,'admin_update'])->name('update');
     });
 
     Route::prefix('/banner')->name('banner.')->group(function () {

@@ -1,64 +1,139 @@
     @extends('admin.layouts.main')
 
+    @section('css')
+        <link href="{{ asset('admin/plugins/tables/css/datatable/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    @endsection
+
     @section('content')
 
     <!--**********************************
         Content body start
     ***********************************-->
+    @if (Auth::user()->type == 'admin')
+
+    @php
+        $total_food = DB::table('menus')->where('user_id',Auth::user()->id)->count();
+
+        $total_food_category = DB::table('food_categories')->where('user_id',Auth::user()->id)->count();
+
+        $total_team_member = DB::table('teams')->where('user_id',Auth::user()->id)->count();
+
+        $total_review = DB::table('testimonials')->where('user_id',Auth::user()->id)->count();
+    @endphp
+
+    @elseif(Auth::user()->type == 'superadmin')
+
+    @php
+        $total_restaurent = DB::table('users')->where('type','admin')->count();
+
+        $basic = DB::table('plans')->where('id',1)->first();
+
+        $premium = DB::table('plans')->where('id',2)->first();
+
+        $total_basic_restaurent = DB::table('subscriptions')->where('stripe_price',$basic->stripe_plan)->count();
+
+        $total_premium_restaurent = DB::table('subscriptions')->where('stripe_price',$premium->stripe_plan)->count();
+
+    @endphp
+
+    @endif
     <div class="content-body">
 
         <div class="container-fluid mt-3">
-            <div class="row">
-                <div class="col-lg-3 col-sm-6">
-                    <div class="card gradient-1">
-                        <div class="card-body">
-                            <h3 class="card-title text-white">Products Sold</h3>
-                            <div class="d-inline-block">
-                                <h2 class="text-white">4565</h2>
-                                <p class="text-white mb-0">Jan - March 2019</p>
-                            </div>
-                            <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span>
+          @if (Auth::user()->type == 'admin')
+          <div class="row">
+              <div class="col-lg-3 col-sm-6">
+                  <div class="card gradient-1">
+                      <div class="card-body">
+                          <h3 class="card-title text-white">Total Food Item</h3>
+                          <div class="d-inline-block">
+                              <h2 class="text-white">{{ $total_food }}</h2>
+                              {{-- <p class="text-white mb-0">Jan - March 2019</p> --}}
+                          </div>
+                          <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-lg-3 col-sm-6">
+                  <div class="card gradient-2">
+                      <div class="card-body">
+                          <h3 class="card-title text-white">Total Food Category</h3>
+                          <div class="d-inline-block">
+                              <h2 class="text-white">{{ $total_food_category }}</h2>
+                              {{-- <p class="text-white mb-0">Jan - March 2019</p> --}}
+                          </div>
+                          <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-lg-3 col-sm-6">
+                  <div class="card gradient-3">
+                      <div class="card-body">
+                          <h3 class="card-title text-white">Total Team Member</h3>
+                          <div class="d-inline-block">
+                              <h2 class="text-white">{{ $total_team_member }}</h2>
+                              {{-- <p class="text-white mb-0">Jan - March 2019</p> --}}
+                          </div>
+                          <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-lg-3 col-sm-6">
+                  <div class="card gradient-4">
+                      <div class="card-body">
+                          <h3 class="card-title text-white">Total Review</h3>
+                          <div class="d-inline-block">
+                              <h2 class="text-white">{{ $total_review }}</h2>
+                              {{-- <p class="text-white mb-0">Jan - March 2019</p> --}}
+                          </div>
+                          <span class="float-right display-5 opacity-5"><i class="fa fa-heart"></i></span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          @elseif(Auth::user()->type == 'superadmin')
+          <div class="row">
+            <div class="col-lg-4 col-sm-12">
+                <div class="card gradient-1">
+                    <div class="card-body">
+                        <h3 class="card-title text-white">Total Restaurent</h3>
+                        <div class="d-inline-block">
+                            <h2 class="text-white">{{ $total_restaurent }}</h2>
+                            {{-- <p class="text-white mb-0">Jan - March 2019</p> --}}
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="card gradient-2">
-                        <div class="card-body">
-                            <h3 class="card-title text-white">Net Profit</h3>
-                            <div class="d-inline-block">
-                                <h2 class="text-white">$ 8541</h2>
-                                <p class="text-white mb-0">Jan - March 2019</p>
-                            </div>
-                            <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="card gradient-3">
-                        <div class="card-body">
-                            <h3 class="card-title text-white">New Customers</h3>
-                            <div class="d-inline-block">
-                                <h2 class="text-white">4565</h2>
-                                <p class="text-white mb-0">Jan - March 2019</p>
-                            </div>
-                            <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="card gradient-4">
-                        <div class="card-body">
-                            <h3 class="card-title text-white">Customer Satisfaction</h3>
-                            <div class="d-inline-block">
-                                <h2 class="text-white">99%</h2>
-                                <p class="text-white mb-0">Jan - March 2019</p>
-                            </div>
-                            <span class="float-right display-5 opacity-5"><i class="fa fa-heart"></i></span>
-                        </div>
+                        <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span>
                     </div>
                 </div>
             </div>
+            <div class="col-lg-4 col-sm-12">
+                <div class="card gradient-2">
+                    <div class="card-body">
+                        <h3 class="card-title text-white">Total Basic Restaurent</h3>
+                        <div class="d-inline-block">
+                            <h2 class="text-white">{{ $total_basic_restaurent }}</h2>
+                            {{-- <p class="text-white mb-0">Jan - March 2019</p> --}}
+                        </div>
+                        <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-12">
+                <div class="card gradient-3">
+                    <div class="card-body">
+                        <h3 class="card-title text-white">Total premium Restaurent</h3>
+                        <div class="d-inline-block">
+                            <h2 class="text-white">{{ $total_premium_restaurent }}</h2>
+                            {{-- <p class="text-white mb-0">Jan - March 2019</p> --}}
+                        </div>
+                        <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+          @endif
 
+            @if (Auth::user()->type == 'superadmin')
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row">
@@ -66,33 +141,38 @@
                             <div class="card">
                                 <div class="card-body pb-0 d-flex justify-content-between">
                                     <div>
-                                        <h4 class="mb-1">Product Sales</h4>
+                                        <h4 class="mb-1">Subscription Sold</h4>
                                         <p>Total Earnings of the Month</p>
-                                        <h3 class="m-0">$ 12,555</h3>
+                                        @php
+                                            $total_basic_subs = DB::table('subscriptions')->whereMonth('created_at',\Carbon\Carbon::now()->format('m'))->where('stripe_price',$basic->stripe_plan)->count();
+
+                                            $total_premium_subs = DB::table('subscriptions')->whereMonth('created_at',\Carbon\Carbon::now()->format('m'))->where('stripe_price',$premium->stripe_plan)->count();
+                                        @endphp
+                                        <h3 class="m-0">$ {{ ($total_basic_subs * $basic->price) + $total_premium_subs * $premium->price}}</h3>
                                     </div>
-                                    <div>
+                                    {{-- <div>
                                         <ul>
                                             <li class="d-inline-block mr-3"><a class="text-dark" href="#">Day</a></li>
                                             <li class="d-inline-block mr-3"><a class="text-dark" href="#">Week</a></li>
                                             <li class="d-inline-block"><a class="text-dark" href="#">Month</a></li>
                                         </ul>
-                                    </div>
+                                    </div> --}}
                                 </div>
-                                <div class="chart-wrapper">
+                                {{-- <div class="chart-wrapper">
                                     <canvas id="chart_widget_2"></canvas>
-                                </div>
+                                </div> --}}
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
                                         <div class="w-100 mr-2">
-                                            <h6>Pixel 2</h6>
+                                            <h6>Basic Subscriber</h6>
                                             <div class="progress" style="height: 6px">
-                                                <div class="progress-bar bg-danger" style="width: 40%"></div>
+                                                <div class="progress-bar bg-danger" style="width: 50%"></div>
                                             </div>
                                         </div>
                                         <div class="ml-2 w-100">
-                                            <h6>iPhone X</h6>
+                                            <h6>Premium Subscriber</h6>
                                             <div class="progress" style="height: 6px">
-                                                <div class="progress-bar bg-primary" style="width: 80%"></div>
+                                                <div class="progress-bar bg-primary" style="width: 50%"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -105,7 +185,8 @@
 
 
 
-            <div class="row">
+
+            {{-- <div class="row">
                     <div class="col-lg-6 col-md-12">
                         <div class="card">
                             <div class="card-body">
@@ -171,7 +252,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+              </div>
 
             <div class="row">
                 @foreach ($team as $item)
@@ -188,7 +269,7 @@
                     </div>
                 </div>
                 @endforeach
-            </div>
+            </div> --}}
 
             <div class="row">
                 <div class="col-lg-12">
@@ -196,122 +277,45 @@
                         <div class="card-body">
                             <div class="active-member">
                                 <div class="table-responsive">
-                                    <table class="table table-xs mb-0">
+                                    <table class="table table-xs mb-0 table-striped table-bordered zero-configuration">
                                         <thead>
                                             <tr>
                                                 <th>Customers</th>
-                                                <th>Product</th>
-                                                <th>Country</th>
+                                                <th>Plan</th>
+                                                <th>Name</th>
                                                 <th>Status</th>
-                                                <th>Payment Method</th>
-                                                <th>Activity</th>
+                                                <th>Card End</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td><img src="{{ asset('admin/images/avatar/1.jpg') }}" class=" rounded-circle mr-3" alt="">Sarah Smith</td>
-                                                <td>iPhone X</td>
-                                                <td>
-                                                    <span>United States</span>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <div class="progress" style="height: 6px">
-                                                            <div class="progress-bar bg-success" style="width: 50%"></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><i class="fa fa-circle-o text-success  mr-2"></i> Paid</td>
-                                                <td>
-                                                    <span>Last Login</span>
-                                                    <span class="m-0 pl-3">10 sec ago</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="{{ asset('admin/images/avatar/2.jpg') }}" class=" rounded-circle mr-3" alt="">Walter R.</td>
-                                                <td>Pixel 2</td>
-                                                <td><span>Canada</span></td>
-                                                <td>
-                                                    <div>
-                                                        <div class="progress" style="height: 6px">
-                                                            <div class="progress-bar bg-success" style="width: 50%"></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><i class="fa fa-circle-o text-success  mr-2"></i> Paid</td>
-                                                <td>
-                                                    <span>Last Login</span>
-                                                    <span class="m-0 pl-3">50 sec ago</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="{{ asset('admin/images/avatar/3.jpg') }}" class=" rounded-circle mr-3" alt="">Andrew D.</td>
-                                                <td>OnePlus</td>
-                                                <td><span>Germany</span></td>
-                                                <td>
-                                                    <div>
-                                                        <div class="progress" style="height: 6px">
-                                                            <div class="progress-bar bg-warning" style="width: 50%"></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><i class="fa fa-circle-o text-warning  mr-2"></i> Pending</td>
-                                                <td>
-                                                    <span>Last Login</span>
-                                                    <span class="m-0 pl-3">10 sec ago</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="{{ asset('admin/images/avatar/6.jpg') }}" class=" rounded-circle mr-3" alt=""> Megan S.</td>
-                                                <td>Galaxy</td>
-                                                <td><span>Japan</span></td>
-                                                <td>
-                                                    <div>
-                                                        <div class="progress" style="height: 6px">
-                                                            <div class="progress-bar bg-success" style="width: 50%"></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><i class="fa fa-circle-o text-success  mr-2"></i> Paid</td>
-                                                <td>
-                                                    <span>Last Login</span>
-                                                    <span class="m-0 pl-3">10 sec ago</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="{{ asset('admin/images/avatar/4.jpg') }}" class=" rounded-circle mr-3" alt=""> Doris R.</td>
-                                                <td>Moto Z2</td>
-                                                <td><span>England</span></td>
-                                                <td>
-                                                    <div>
-                                                        <div class="progress" style="height: 6px">
-                                                            <div class="progress-bar bg-success" style="width: 50%"></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><i class="fa fa-circle-o text-success  mr-2"></i> Paid</td>
-                                                <td>
-                                                    <span>Last Login</span>
-                                                    <span class="m-0 pl-3">10 sec ago</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="{{ asset('admin/images/avatar/5.jpg') }}" class=" rounded-circle mr-3" alt="">Elizabeth W.</td>
-                                                <td>Notebook Asus</td>
-                                                <td><span>China</span></td>
-                                                <td>
-                                                    <div>
-                                                        <div class="progress" style="height: 6px">
-                                                            <div class="progress-bar bg-warning" style="width: 50%"></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><i class="fa fa-circle-o text-warning  mr-2"></i> Pending</td>
-                                                <td>
-                                                    <span>Last Login</span>
-                                                    <span class="m-0 pl-3">10 sec ago</span>
-                                                </td>
-                                            </tr>
+                                          @php
+                                              $customer = DB::table('users')->where('type','admin')->limit(10)->get();
+                                          @endphp
+                                          @foreach ($customer as $item)
+                                          <tr>
+                                              <td>{{ $item->name }}</td>
+                                              <td>
+                                                @php
+                                                    $plan = DB::table('subscriptions')->where('user_id',$item->id)->latest()->first();
+                                                    $plan_name = DB::table('plans')->where('stripe_plan',$plan->stripe_price)->first();
+                                                @endphp
+                                                {{ $plan_name->name }}
+                                              </td>
+                                              <td>
+                                                @php
+                                                    $name = DB::table('settings')->where('user_id',$item->id)->first();
+                                                @endphp
+                                                  {{ $name->name }}
+                                              </td>
+                                              <td>
+                                                  Active
+                                              </td>
+                                              <td><i class="fa fa-circle-o text-success  mr-2"></i> Paid</td>
+                                              <td>
+                                                  {{ $item->pm_last_four }}
+                                              </td>
+                                          </tr>
+                                          @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -320,7 +324,7 @@
                     </div>
                 </div>
             </div>
-
+{{--
             <div class="row">
                 <div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6">
 
@@ -515,7 +519,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
+            </div> --}}
+            @endif
+
         </div>
         <!-- #/ container -->
     </div>
@@ -523,6 +529,12 @@
         Content body end
     ***********************************-->
 
+    @endsection
+
+    @section('js')
+        <script src="{{ asset('admin/plugins/tables/js/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('admin/plugins/tables/js/datatable/dataTables.bootstrap4.min.js') }}"></script>
+        <script src="{{ asset('admin/plugins/tables/js/datatable-init/datatable-basic.min.js') }}"></script>
     @endsection
 
 

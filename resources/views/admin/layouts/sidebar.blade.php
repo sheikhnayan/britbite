@@ -10,6 +10,7 @@
                             <span class="nav-text">Dashboard</span>
                         </a>
                     </li>
+                    @if (Auth::user()->type == 'admin')
                     <li>
                         <a href="{{ route('admin.team.index') }}" aria-expanded="false">
                             <span class="nav-text">Team</span>
@@ -35,6 +36,22 @@
                             <span class="nav-text">Setting</span>
                         </a>
                     </li>
+                    @endif
+                    @if (Auth::user()->type == 'superadmin')
+
+                    <li>
+                      <a href="{{ route('admin.payment.index') }}" aria-expanded="false">
+                          <span class="nav-text">Payment Getaway Setting</span>
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="{{ route('admin.plan.index') }}" aria-expanded="false">
+                          <span class="nav-text">Plans</span>
+                      </a>
+                    </li>
+
+                    @endif
                     {{-- <li class="mega-menu mega-menu-sm">
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Layouts</span>
