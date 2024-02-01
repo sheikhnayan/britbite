@@ -166,13 +166,13 @@
                                         <div class="w-100 mr-2">
                                             <h6>Basic Subscriber</h6>
                                             <div class="progress" style="height: 6px">
-                                                <div class="progress-bar bg-danger" style="width: 50%"></div>
+                                                <div class="progress-bar bg-danger" style="width: {{ ((($total_basic_subs+$total_premium_subs)/100)*$total_basic_subs)*100 }}%"></div>
                                             </div>
                                         </div>
                                         <div class="ml-2 w-100">
                                             <h6>Premium Subscriber</h6>
                                             <div class="progress" style="height: 6px">
-                                                <div class="progress-bar bg-primary" style="width: 50%"></div>
+                                                <div class="progress-bar bg-primary" style="width: {{ ((($total_basic_subs+$total_premium_subs)/100)*$total_premium_subs)*100 }}%"></div>
                                             </div>
                                         </div>
                                     </div>
