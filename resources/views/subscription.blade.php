@@ -99,12 +99,18 @@
 
     </div>
 
+    @php
+        $payment  = DB::table('payments')->first();
+    @endphp
+
+    <input type="hidden" id="key" value="{{ $payment->stripe_key }}">
 
 
     <script src="https://js.stripe.com/v3/"></script>
 
     <script>
-        const stripe = Stripe('{{ env('STRIPE_KEY') }}')
+        key = $('#key').value;
+        const stripe = Stripe(key)
 
 
 
