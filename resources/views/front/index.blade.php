@@ -115,6 +115,14 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="control-group">
+                                  <div class="input-group">
+                                      <input type="text" id="formnote" value="" name="note" class="form-control" placeholder="Special Note" required="required" />
+                                      <div class="input-group-append">
+                                          <div class="input-group-text"><i class="far fa-user"></i></div>
+                                      </div>
+                                  </div>
+                              </div>
                                 <input type="hidden" name="phones" id="phones" value="{{ $setting->phone }}">
                                 <div>
                                     <button class="btn custom-btn" type="submit">Book Now</button>
@@ -579,6 +587,7 @@
         var formEl = document.forms.booking;
         var formData = new FormData(formEl);
         name = formData.get('name');
+        note = formData.get('note');
         email = formData.get('email');
         mobile = formData.get('mobile');
         phone = formData.get('phones');
@@ -587,11 +596,11 @@
         time = formData.get('times');
         guest = formData.get('guest');
 
-        window.open('https://wa.me/'+phone+'?text=Name:%20'+name+'%0AEmail:%20'+email+'%0AMobile:%20'+mobile+'%0ADate:%20'+date+'%0ATime:%20'+time+'%0AGuest:%20'+guest, '_blank')
+        window.open('https://wa.me/'+phone+'?text=Name:%20'+name+'%0AEmail:%20'+email+'%0AMobile:%20'+mobile+'%0ADate:%20'+date+'%0ATime:%20'+time+'%0AGuest:%20'+guest+'%0ASpecial%20Note:%20'+note, '_blank')
 
         // window.location.href = 'https://wa.me/8801980265838?text=Name:%20'+name+'%0AEmail:%20'+email+'%0AMobile:%20'+mobile+'%0ADate:%20'+date+'%0ATime:%20'+time+'%0AGuest:%20'+guest;
 
         return false;
-    });
+      });
     </script>
 @endsection
