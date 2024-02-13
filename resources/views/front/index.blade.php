@@ -2,7 +2,7 @@
 
 @section('content')
     @php
-        $setting = DB::table('settings')->first();
+        $setting = DB::table('settings')->where('slug',$slug)->first();
     @endphp
 
         <!-- Carousel Start -->
@@ -20,8 +20,8 @@
                                 {{ $item->sub_title }}
                             </p>
                             <div class="carousel-btn">
-                                <a class="btn custom-btn" href="{{ route('menu') }}">View Menu</a>
-                                <a class="btn custom-btn" href="{{ route('menu') }}">Book Table</a>
+                                <a class="btn custom-btn" href="{{ route('menu',[$slug]) }}">View Menu</a>
+                                <a class="btn custom-btn" href="{{ route('menu',[$slug]) }}">Book Table</a>
                             </div>
                         </div>
                     </div>
@@ -54,10 +54,10 @@
                     </div>
                     <div class="col-lg-5">
                         <div class="booking-form">
-                            <form>
+                            <form action="#" id="booking" onsubmit="event.preventDefault();">
                                 <div class="control-group">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Name" required="required" />
+                                        <input type="text" id="formname" value="" name="name" class="form-control" placeholder="Name" required="required" />
                                         <div class="input-group-append">
                                             <div class="input-group-text"><i class="far fa-user"></i></div>
                                         </div>
@@ -65,7 +65,7 @@
                                 </div>
                                 <div class="control-group">
                                     <div class="input-group">
-                                        <input type="email" class="form-control" placeholder="Email" required="required" />
+                                        <input type="email" id="formemail" value="" name="email" class="form-control" placeholder="Email" />
                                         <div class="input-group-append">
                                             <div class="input-group-text"><i class="far fa-envelope"></i></div>
                                         </div>
@@ -73,7 +73,7 @@
                                 </div>
                                 <div class="control-group">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Mobile" required="required" />
+                                        <input type="text" class="form-control" value="" id="formmobile" name="mobile" placeholder="Mobile" required="required" />
                                         <div class="input-group-append">
                                             <div class="input-group-text"><i class="fa fa-mobile-alt"></i></div>
                                         </div>
@@ -81,7 +81,7 @@
                                 </div>
                                 <div class="control-group">
                                     <div class="input-group date" id="date" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" placeholder="Date" data-target="#date" data-toggle="datetimepicker"/>
+                                        <input type="text" name="dates" value="" id="formdates" class="form-control datetimepicker-input" placeholder="Date" data-target="#date" data-toggle="datetimepicker"/>
                                         <div class="input-group-append" data-target="#date" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
                                         </div>
@@ -89,7 +89,7 @@
                                 </div>
                                 <div class="control-group">
                                     <div class="input-group time" id="time" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" placeholder="Time" data-target="#time" data-toggle="datetimepicker"/>
+                                        <input type="text" id="formtimes" value="" name="times" class="form-control datetimepicker-input" placeholder="Time" data-target="#time" data-toggle="datetimepicker"/>
                                         <div class="input-group-append" data-target="#time" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="far fa-clock"></i></div>
                                         </div>
@@ -97,7 +97,7 @@
                                 </div>
                                 <div class="control-group">
                                     <div class="input-group">
-                                        <select class="custom-select form-control">
+                                        <select id="formguest" name="guest" class="custom-select form-control">
                                             <option selected>Guest</option>
                                             <option value="1">1 Guest</option>
                                             <option value="2">2 Guest</option>
@@ -115,6 +115,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <input type="hidden" name="phones" id="phones" value="{{ $setting->phone }}">
                                 <div>
                                     <button class="btn custom-btn" type="submit">Book Now</button>
                                 </div>
@@ -149,7 +150,7 @@
                                 <p>
                                 {{ $setting->content }}
                                 </p>
-                                <a class="btn custom-btn" href="{{ route('booking') }}">Book A Table</a>
+                                <a class="btn custom-btn" href="{{ route('booking',[$slug]) }}">Book A Table</a>
                             </div>
                         </div>
                     </div>
@@ -291,7 +292,7 @@
                             <p>
                                 {{ $item->description }}
                             </p>
-                            <a href="{{ route('menu') }}">View Menu</a>
+                            <a href="{{ route('menu',[$slug]) }}#sec-{{ $item->id }}">View Menu</a>
                         </div>
                     </div>
 
@@ -303,7 +304,7 @@
 
 
         <!-- Menu Start -->
-        <div class="menu">
+        {{-- <div class="menu">
             <div class="container">
                 <div class="section-header text-center">
                     <p>Food Menu</p>
@@ -346,7 +347,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- Menu End -->
 
 
@@ -536,7 +537,8 @@
                     <h2>Latest From Food Blog</h2>
                 </div>
                 @php
-                    $blog = DB::table('blogs')->latest()->limit(2)->get();
+                    $user_id = DB::table('settings')->where('slug',$slug)->first();
+                    $blog = DB::table('blogs')->where('user_id',$user_id->user_id)->latest()->limit(2)->get();
                 @endphp
                 <div class="row">
                   @foreach ($blog as $item)
@@ -557,7 +559,7 @@
                                   <p>
                                     {!! \Illuminate\Support\Str::limit($item->content, 200, '...') !!}
                                   </p>
-                                  <a class="btn custom-btn" href="{{ route('single',[$item->id]) }}">Read More</a>
+                                  <a class="btn custom-btn" href="{{ route('single',[$slug,$item->id]) }}">Read More</a>
                               </div>
                           </div>
                       </div>
@@ -569,4 +571,27 @@
         <!-- Blog End -->
 
 
+@endsection
+
+@section('script')
+    <script>
+      $('#booking').submit(function() {
+        var formEl = document.forms.booking;
+        var formData = new FormData(formEl);
+        name = formData.get('name');
+        email = formData.get('email');
+        mobile = formData.get('mobile');
+        phone = formData.get('phones');
+        phone = phone.replace("+", "");
+        date = formData.get('dates');
+        time = formData.get('times');
+        guest = formData.get('guest');
+
+        window.open('https://wa.me/'+phone+'?text=Name:%20'+name+'%0AEmail:%20'+email+'%0AMobile:%20'+mobile+'%0ADate:%20'+date+'%0ATime:%20'+time+'%0AGuest:%20'+guest, '_blank')
+
+        // window.location.href = 'https://wa.me/8801980265838?text=Name:%20'+name+'%0AEmail:%20'+email+'%0AMobile:%20'+mobile+'%0ADate:%20'+date+'%0ATime:%20'+time+'%0AGuest:%20'+guest;
+
+        return false;
+    });
+    </script>
 @endsection

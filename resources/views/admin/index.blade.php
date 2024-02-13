@@ -297,9 +297,15 @@
                                               <td>
                                                 @php
                                                     $plan = DB::table('subscriptions')->where('user_id',$item->id)->latest()->first();
-                                                    $plan_name = DB::table('plans')->where('stripe_plan',$plan->stripe_price)->first();
+                                                    if ($plan != null) {
+                                                      # code...
+                                                      $plan_name = DB::table('plans')->where('stripe_plan',$plan->stripe_price)->first();
+                                                    }else {
+                                                      # code...
+                                                      $plan_name = null;
+                                                    }
                                                 @endphp
-                                                {{ $plan_name->name }}
+                                                {{ $plan_name->name ?? 'Unpaid'}}
                                               </td>
                                               <td>
                                                 @php

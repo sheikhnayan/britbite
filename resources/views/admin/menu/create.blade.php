@@ -50,6 +50,17 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                  <label>Offer Type</label>
+                                  <select class="form-control input-default" name="buy_type" id="offer_type">
+                                      <option value="null">None</option>
+                                      <option value="get">Get</option>
+                                      <option value="offer">Offer</option>
+                                  </select>
+                                </div>
+                                <div class="offer">
+
+                                </div>
                                 <div class="form-check">
                                   <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
                                   <label class="form-check-label" for="flexCheckChecked">
@@ -150,6 +161,37 @@
 
       console.log(parent);
     }
+</script>
+
+<script>
+  $('#offer_type').on('change', function(){
+    val = $('#offer_type').val();
+
+    if (val == 'get') {
+      htmls = `<div class="form-group">
+                  <label>Buy *</label>
+                  <input type="text" class="form-control input-default" name="buy" required>
+              </div>
+              <div class="form-group">
+                  <label>Get *</label>
+                  <input type="text" class="form-control input-default" name="buy_get" required>
+              </div>`;
+      $('.offer').html(htmls);
+
+    } else if(val == 'offer') {
+      htmls = `<div class="form-group">
+                  <label>Buy *</label>
+                  <input type="text" class="form-control input-default" name="buy" required>
+              </div>
+              <div class="form-group">
+                  <label>Offer % *</label>
+                  <input type="text" class="form-control input-default" name="buy_offer" required>
+              </div>`;
+      $('.offer').html(htmls);
+    }else{
+      $('.offer').empty();
+    }
+  })
 </script>
 
 @endsection

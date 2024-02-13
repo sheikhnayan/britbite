@@ -10,8 +10,8 @@
                 <h2>Contact Us</h2>
             </div>
             <div class="col-12">
-                <a href="">Home</a>
-                <a href="">Contact</a>
+                <a href="{{ route('index',[$slug]) }}">Home</a>
+                <a href="#">Contact</a>
             </div>
         </div>
     </div>
@@ -34,7 +34,7 @@
                     </div>
                     <div class="contact-text">
                         <h3>Address</h3>
-                        <p>123 Street, NY, USA</p>
+                        <p>{{ $setting->address }}</p>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                     </div>
                     <div class="contact-text">
                         <h3>Call Us</h3>
-                        <p>+012 345 6789</p>
+                        <p>{{ $setting->phone }}</p>
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                     </div>
                     <div class="contact-text">
                         <h3>Email Us</h3>
-                        <p>info@example.com</p>
+                        <p>{{ $setting->email }}</p>
                     </div>
                 </div>
             </div>
@@ -68,11 +68,11 @@
                     <div class="contact-text">
                         <h3>Follow Us</h3>
                         <div class="contact-social">
-                            <a href=""><i class="fab fa-twitter"></i></a>
-                            <a href=""><i class="fab fa-facebook-f"></i></a>
-                            <a href=""><i class="fab fa-youtube"></i></a>
-                            <a href=""><i class="fab fa-instagram"></i></a>
-                            <a href=""><i class="fab fa-linkedin-in"></i></a>
+                          <a target="_blank" href="{{ $setting->twitter }}"><i class="fab fa-twitter"></i></a>
+                          <a target="_blank" href="{{ $setting->facebook }}"><i class="fab fa-facebook-f"></i></a>
+                          <a target="_blank" href="{{ $setting->youtube }}"><i class="fab fa-youtube"></i></a>
+                          <a target="_blank" href="{{ $setting->instagram }}"><i class="fab fa-instagram"></i></a>
+                          <a target="_blank" href="{{ $setting->linkedin }}"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                 </div>

@@ -44,6 +44,10 @@ class MenuController extends Controller
         $add = new Menu;
         $add->image = $path;
         $add->name = $request->name;
+        $add->buy_type = $request->buy_type;
+        $add->buy = $request->buy;
+        $add->buy_get = $request->buy_get;
+        $add->buy_offer = $request->buy_offer;
         $add->description = $request->description;
         $add->food_category_id = $request->food_category_id;
         $add->price = $request->price;
@@ -102,6 +106,10 @@ class MenuController extends Controller
             $add->image = $path;
         }
         $add->name = $request->name;
+        $add->buy_type = $request->buy_type;
+        $add->buy = $request->buy;
+        $add->buy_get = $request->buy_get;
+        $add->buy_offer = $request->buy_offer;
         $add->description = $request->description;
         $add->food_category_id = $request->food_category_id;
         $add->price = $request->price;

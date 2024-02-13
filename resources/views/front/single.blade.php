@@ -9,8 +9,8 @@
                 <h2>{{ $data->title }}</h2>
             </div>
             <div class="col-12">
-                <a href="">Home</a>
-                <a href="">Detail</a>
+                <a href="{{ route('index',[$slug]) }}">Home</a>
+                <a href="#">Detail</a>
             </div>
         </div>
     </div>

@@ -10,8 +10,8 @@
                 <h2>Master Chef</h2>
             </div>
             <div class="col-12">
-                <a href="">Home</a>
-                <a href="">Chef</a>
+                <a href="{{ route('index',[$slug]) }}">Home</a>
+                <a href="#">Chef</a>
             </div>
         </div>
     </div>

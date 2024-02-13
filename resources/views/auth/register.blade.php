@@ -1,52 +1,58 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+@extends('front.layouts.guest')
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+@section('header')
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+  <link rel="stylesheet" href="{{ asset('login.css') }}">
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+@endsection
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+@section('content')
+<section>
+  <div class="container active">
+    <div class="user signinBx">
+      <div class="imgBx"><img src="https://raw.githubusercontent.com/WoojinFive/CSS_Playground/master/Responsive%20Login%20and%20Registration%20Form/img1.jpg" alt="" /></div>
+      <div class="formBx">
+        <form action="{{ route('login') }}" method="POST">
+          @csrf
+          <h2>Sign In</h2>
+          <input type="email" name="email" placeholder="Email" />
+          <input type="password" name="password" placeholder="Password" />
+          <input type="submit" name="" value="Login" />
+          <p class="signup">
+            Don't have an account ?
+            <a href="#" onclick="toggleForm();">Sign Up.</a>
+          </p>
+        </form>
+      </div>
+    </div>
+    <div class="user signupBx">
+      <div class="formBx">
+        <form action="{{ route('register') }}" method="POST">
+          @csrf
+          <h2>Create an account</h2>
+          <input type="text" name="name" placeholder="User Name" />
+          <input type="text" name="company_name" placeholder="Restaurant Name" />
+          <input type="email" name="email" placeholder="Email Address" />
+          <input type="password" name="password" placeholder="Create Password" />
+          <input type="password" name="password_confirmation" placeholder="Confirm Password" />
+          <input type="submit" name="" value="Sign Up" />
+          <p class="signup">
+            Already have an account ?
+            <a href="#" onclick="toggleForm();">Sign in.</a>
+          </p>
+        </form>
+      </div>
+      <div class="imgBx"><img src="https://raw.githubusercontent.com/WoojinFive/CSS_Playground/master/Responsive%20Login%20and%20Registration%20Form/img2.jpg" alt="" /></div>
+    </div>
+  </div>
+</section>
+@endsection
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+@section('script')
+    <script>
+      const toggleForm = () => {
+      const container = document.querySelector('.container');
+      container.classList.toggle('active');
+    };
+    </script>
+@endsection

@@ -9,68 +9,126 @@ use App\Models\Banner;
 use App\Models\Page;
 use App\Models\Blog;
 use App\Models\FoodCategory;
+use App\Models\Menu;
+use App\Models\Setting;
 
 class FrontController extends Controller
 {
-    public function index()
+    public function index($slug)
     {
-        $team = Team::all();
 
-        $banner = Banner::all();
+        $user = Setting::where('slug',$slug)->first();
 
-        $food_category = FoodCategory::all();
 
-        return view('front.index',compact('team','banner','food_category'));
+        $user = $user->user;
+
+        $team = Team::where('user_id',$user->id)->get();
+
+        $banner = Banner::where('user_id',$user->id)->get();
+
+        $food_category = FoodCategory::where('user_id',$user->id)->get();
+
+        return view('front.index',compact('team','banner','food_category','slug'));
     }
 
-    public function about()
+    public function about($slug)
     {
-        return view('front.about');
+        $setting = Setting::where('slug',$slug)->first();
+
+        $user = $setting->user;
+
+        $food_category = FoodCategory::where('user_id',$user->id)->get();
+
+        return view('front.about',compact('slug','food_category','setting'));
     }
 
-    public function blog()
+    public function blog($slug)
     {
-        return view('front.blog');
+        $user = Setting::where('slug',$slug)->first();
+
+
+        $user = $user->user;
+
+        return view('front.blog',compact('slug'));
     }
 
-    public function booking()
+    public function booking($slug)
     {
-        return view('front.booking');
+        $user = Setting::where('slug',$slug)->first();
+
+
+        $user = $user->user;
+
+        return view('front.booking',compact('slug'));
     }
 
-    public function contact()
+    public function contact($slug)
     {
-        return view('front.contact');
+        $setting = Setting::where('slug',$slug)->first();
+
+
+        $user = $setting->user;
+
+        return view('front.contact',compact('slug','setting'));
     }
 
-    public function feature()
+    public function feature($slug)
     {
-        return view('front.feature');
+        $user = Setting::where('slug',$slug)->first();
+
+
+        $user = $user->user;
+
+        return view('front.feature',compact('slug'));
     }
 
-    public function menu()
+    public function menu($slug)
     {
-        return view('front.menu');
+        $user = Setting::where('slug',$slug)->first();
+
+
+        $user = $user->user;
+
+        $category = FoodCategory::where('user_id',$user->id)->get();
+
+        $menu = Menu::where('user_id',$user->id)->get();
+
+        return view('front.menu',compact('slug','menu','category'));
     }
 
-    public function single($id)
+    public function single($slug,$id)
     {
-        $data = Blog::find($id);
+        $user = Setting::where('slug',$slug)->first();
 
-        return view('front.single',compact('data'));
+
+        $user = $user->user;
+
+        $data = Blog::where('user_id',$user->id)->get();
+
+        return view('front.single',compact('data','slug'));
     }
 
-    public function page($title)
+    public function page($slug,$title)
     {
+        $user = Setting::where('slug',$slug)->first();
+
+
+        $user = $user->user;
+
         $data = Page::where('title',$title)->first();
 
-        return view('front.page',compact('data'));
+        return view('front.page',compact('data','slug'));
     }
 
-    public function team()
+    public function team($slug)
     {
-        $data = Team::all();
+        $user = Setting::where('slug',$slug)->first();
 
-        return view('front.team',compact('data'));
+
+        $user = $user->user;
+
+        $data = Team::where('user_id',$user->id)->get();;
+
+        return view('front.team',compact('data','slug'));
     }
 }

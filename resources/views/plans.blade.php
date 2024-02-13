@@ -1,4 +1,4 @@
-@extends('front.layouts.main')
+@extends('front.layouts.guest')
 
 @section('header')
     <link rel="stylesheet" href="{{ asset('login.css') }}">

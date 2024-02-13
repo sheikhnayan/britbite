@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="email" class="form-control input-default" value="{{ $data->email }}" placeholder="Enter Email" name="email" required>
+                                    <input type="email" class="form-control input-default" value="{{ $data->user->email }}" placeholder="Enter Email" name="email" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Phone</label>

@@ -44,8 +44,11 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        $slug = str_replace(' ','-',$request->company_name);
+
         $setting = new Setting;
         $setting->name = $request->company_name;
+        $setting->slug = $slug;
         $setting->user_id = $user->id;
         $setting->save();
 

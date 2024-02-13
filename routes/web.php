@@ -25,28 +25,28 @@ use App\Http\Controllers\PlanController;
 */
 
 Route::middleware("auth")->group(function () {
-    Route::get('plans', [PlanController::class, 'index']);
+    Route::get('plans', [PlanController::class, 'index'])->name("plans.indexs");
     Route::get('plans/{plan}', [PlanController::class, 'show'])->name("plans.show");
     Route::post('subscription', [PlanController::class, 'subscription'])->name("subscription.create");
 });
 
 Route::prefix('/')->group(function () {
-    Route::get('/',[FrontController::class,'index'])->name('index');
-    Route::get('/about',[FrontController::class,'about'])->name('about');
-    Route::get('/blog',[FrontController::class,'blog'])->name('blog');
-    Route::get('/booking',[FrontController::class,'booking'])->name('booking');
-    Route::get('/contact',[FrontController::class,'contact'])->name('contact');
-    Route::get('/feature',[FrontController::class,'feature'])->name('feature');
-    Route::get('/menu',[FrontController::class,'menu'])->name('menu');
-    Route::get('/single/{id}',[FrontController::class,'single'])->name('single');
-    Route::get('/page{title}',[FrontController::class,'page'])->name('page');
-    Route::get('/team',[FrontController::class,'team'])->name('team');
+    Route::get('/home/{slug}',[FrontController::class,'index'])->name('index');
+    Route::get('/{slug}/about',[FrontController::class,'about'])->name('about');
+    Route::get('/{slug}/blog',[FrontController::class,'blog'])->name('blog');
+    Route::get('/{slug}/booking',[FrontController::class,'booking'])->name('booking');
+    Route::get('/{slug}/contact',[FrontController::class,'contact'])->name('contact');
+    Route::get('/{slug}/feature',[FrontController::class,'feature'])->name('feature');
+    Route::get('/{slug}/menu',[FrontController::class,'menu'])->name('menu');
+    Route::get('/{slug}/single/{id}',[FrontController::class,'single'])->name('single');
+    Route::get('/{slug}/page{title}',[FrontController::class,'page'])->name('page');
+    Route::get('/{slug}/team',[FrontController::class,'team'])->name('team');
 });
 
 Route::prefix('/admins')->name('admin.')->middleware(['auth','admin'])->group(function () {
     Route::get('/',[AdminController::class,'index'])->name('index');
 
-    Route::prefix('/team')->name('team.')->group(function () {
+    Route::prefix('/teams')->name('team.')->group(function () {
         Route::get('/',[TeamController::class,'index'])->name('index');
         Route::get('/add',[TeamController::class,'create'])->name('add');
         Route::post('/store',[TeamController::class,'store'])->name('store');
@@ -97,7 +97,7 @@ Route::prefix('/admins')->name('admin.')->middleware(['auth','admin'])->group(fu
         Route::get('/delete/{id}',[FoodCategoryController::class,'destroy'])->name('delete');
     });
 
-    Route::prefix('/menu')->name('menu.')->group(function () {
+    Route::prefix('/menus')->name('menu.')->group(function () {
         Route::get('/',[MenuController::class,'index'])->name('index');
         Route::get('/add',[MenuController::class,'create'])->name('add');
         Route::post('/store',[MenuController::class,'store'])->name('store');
@@ -106,7 +106,7 @@ Route::prefix('/admins')->name('admin.')->middleware(['auth','admin'])->group(fu
         Route::get('/delete/{id}',[MenuController::class,'destroy'])->name('delete');
     });
 
-    Route::prefix('/page')->name('page.')->group(function () {
+    Route::prefix('/pages')->name('page.')->group(function () {
         Route::get('/',[PageController::class,'index'])->name('index');
         Route::get('/add',[PageController::class,'create'])->name('add');
         Route::post('/store',[PageController::class,'store'])->name('store');
@@ -115,7 +115,7 @@ Route::prefix('/admins')->name('admin.')->middleware(['auth','admin'])->group(fu
         Route::get('/delete/{id}',[PageController::class,'destroy'])->name('delete');
     });
 
-    Route::prefix('/blog')->name('blog.')->group(function () {
+    Route::prefix('/blogs')->name('blog.')->group(function () {
         Route::get('/',[BlogController::class,'index'])->name('index');
         Route::get('/add',[BlogController::class,'create'])->name('add');
         Route::post('/store',[BlogController::class,'store'])->name('store');

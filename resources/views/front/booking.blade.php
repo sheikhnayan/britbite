@@ -10,8 +10,8 @@
                 <h2>Book A Table</h2>
             </div>
             <div class="col-12">
-                <a href="">Home</a>
-                <a href="">Booking</a>
+                <a href="{{ route('index',[$slug]) }}">Home</a>
+                <a href="#">Booking</a>
             </div>
         </div>
     </div>
@@ -41,71 +41,72 @@
             </div>
             <div class="col-lg-5">
                 <div class="booking-form">
-                    <form>
-                        <div class="control-group">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Name" required="required" />
-                                <div class="input-group-append">
-                                    <div class="input-group-text"><i class="far fa-user"></i></div>
-                                </div>
+                  <form action="#" id="booking" onsubmit="event.preventDefault();">
+                    <div class="control-group">
+                        <div class="input-group">
+                            <input type="text" id="formname" value="" name="name" class="form-control" placeholder="Name" required="required" />
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="far fa-user"></i></div>
                             </div>
                         </div>
-                        <div class="control-group">
-                            <div class="input-group">
-                                <input type="email" class="form-control" placeholder="Email" required="required" />
-                                <div class="input-group-append">
-                                    <div class="input-group-text"><i class="far fa-envelope"></i></div>
-                                </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="input-group">
+                            <input type="email" id="formemail" value="" name="email" class="form-control" placeholder="Email" />
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="far fa-envelope"></i></div>
                             </div>
                         </div>
-                        <div class="control-group">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Mobile" required="required" />
-                                <div class="input-group-append">
-                                    <div class="input-group-text"><i class="fa fa-mobile-alt"></i></div>
-                                </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" value="" id="formmobile" name="mobile" placeholder="Mobile" required="required" />
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fa fa-mobile-alt"></i></div>
                             </div>
                         </div>
-                        <div class="control-group">
-                            <div class="input-group date" id="date" data-target-input="nearest">
-                                <input type="text" class="form-control datetimepicker-input" placeholder="Date" data-target="#date" data-toggle="datetimepicker"/>
-                                <div class="input-group-append" data-target="#date" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
-                                </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="input-group date" id="date" data-target-input="nearest">
+                            <input type="text" name="dates" value="" id="formdates" class="form-control datetimepicker-input" placeholder="Date" data-target="#date" data-toggle="datetimepicker"/>
+                            <div class="input-group-append" data-target="#date" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
                             </div>
                         </div>
-                        <div class="control-group">
-                            <div class="input-group time" id="time" data-target-input="nearest">
-                                <input type="text" class="form-control datetimepicker-input" placeholder="Time" data-target="#time" data-toggle="datetimepicker"/>
-                                <div class="input-group-append" data-target="#time" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="far fa-clock"></i></div>
-                                </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="input-group time" id="time" data-target-input="nearest">
+                            <input type="text" id="formtimes" value="" name="times" class="form-control datetimepicker-input" placeholder="Time" data-target="#time" data-toggle="datetimepicker"/>
+                            <div class="input-group-append" data-target="#time" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="far fa-clock"></i></div>
                             </div>
                         </div>
-                        <div class="control-group">
-                            <div class="input-group">
-                                <select class="custom-select form-control">
-                                    <option selected>Guest</option>
-                                    <option value="1">1 Guest</option>
-                                    <option value="2">2 Guest</option>
-                                    <option value="3">3 Guest</option>
-                                    <option value="4">4 Guest</option>
-                                    <option value="5">5 Guest</option>
-                                    <option value="6">6 Guest</option>
-                                    <option value="7">7 Guest</option>
-                                    <option value="8">8 Guest</option>
-                                    <option value="9">9 Guest</option>
-                                    <option value="10">10 Guest</option>
-                                </select>
-                                <div class="input-group-append">
-                                    <div class="input-group-text"><i class="fa fa-chevron-down"></i></div>
-                                </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="input-group">
+                            <select id="formguest" name="guest" class="custom-select form-control">
+                                <option selected>Guest</option>
+                                <option value="1">1 Guest</option>
+                                <option value="2">2 Guest</option>
+                                <option value="3">3 Guest</option>
+                                <option value="4">4 Guest</option>
+                                <option value="5">5 Guest</option>
+                                <option value="6">6 Guest</option>
+                                <option value="7">7 Guest</option>
+                                <option value="8">8 Guest</option>
+                                <option value="9">9 Guest</option>
+                                <option value="10">10 Guest</option>
+                            </select>
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fa fa-chevron-down"></i></div>
                             </div>
                         </div>
-                        <div>
-                            <button class="btn custom-btn" type="submit">Book Now</button>
-                        </div>
-                    </form>
+                    </div>
+                    <input type="hidden" name="phones" id="phones" value="{{ $setting->phone }}">
+                    <div>
+                        <button class="btn custom-btn" type="submit">Book Now</button>
+                    </div>
+                </form>
                 </div>
             </div>
         </div>
@@ -115,7 +116,7 @@
 
 
 <!-- Menu Start -->
-<div class="menu">
+{{-- <div class="menu">
     <div class="container">
         <div class="section-header text-center">
             <p>Food Menu</p>
@@ -290,7 +291,30 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <!-- Menu End -->
 
+@endsection
+
+@section('script')
+    <script>
+      $('#booking').submit(function() {
+        var formEl = document.forms.booking;
+        var formData = new FormData(formEl);
+        name = formData.get('name');
+        email = formData.get('email');
+        mobile = formData.get('mobile');
+        phone = formData.get('phones');
+        phone = phone.replace("+", "");
+        date = formData.get('dates');
+        time = formData.get('times');
+        guest = formData.get('guest');
+
+        window.open('https://wa.me/'+phone+'?text=Name:%20'+name+'%0AEmail:%20'+email+'%0AMobile:%20'+mobile+'%0ADate:%20'+date+'%0ATime:%20'+time+'%0AGuest:%20'+guest, '_blank')
+
+        // window.location.href = 'https://wa.me/8801980265838?text=Name:%20'+name+'%0AEmail:%20'+email+'%0AMobile:%20'+mobile+'%0ADate:%20'+date+'%0ATime:%20'+time+'%0AGuest:%20'+guest;
+
+        return false;
+    });
+    </script>
 @endsection

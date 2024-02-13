@@ -11,7 +11,7 @@
         <div class="col p-md-0">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">Team Edit</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Menu Edit</a></li>
             </ol>
         </div>
     </div>
@@ -22,7 +22,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Edit Banner</h4>
+                        <h4 class="card-title">Edit Menu</h4>
                         <div class="basic-form">
                             <form action="{{ route('admin.menu.update',[$data->id]) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
@@ -51,6 +51,35 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                  <label>Offer Type</label>
+                                  <select class="form-control input-default" name="buy_type" id="offer_type">
+                                      <option {{ $data->buy_type == null ? 'selected' : '' }} value="null">None</option>
+                                      <option {{ $data->buy_type == 'get' ? 'selected' : '' }} value="get">Get</option>
+                                      <option {{ $data->buy_type == 'offer' ? 'selected' : '' }} value="offer">Offer</option>
+                                  </select>
+                                </div>
+                                <div class="offer">
+                                    @if ($data->buy_type == 'get')
+                                    <div class="form-group">
+                                      <label>Buy *</label>
+                                      <input type="text" value="{{ $data->buy }}" class="form-control input-default" name="buy" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Get *</label>
+                                        <input type="text" value="{{ $data->buy_get }}" class="form-control input-default" name="buy_get" required>
+                                    </div>
+                                    @elseif($data->buy_type == 'offer')
+                                    <div class="form-group">
+                                      <label>Buy *</label>
+                                      <input type="text" value="{{ $data->buy }}" class="form-control input-default" name="buy" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Offer % *</label>
+                                        <input type="text" value="{{ $data->buy_offer }}" class="form-control input-default" name="buy_offer" required>
+                                    </div>
+                                    @endif
+                                </div>
                                 {{-- <div class="form-group">
                                     <label>Status</label>
                                     <select id="" class="form-control input-default" name="status">
@@ -74,4 +103,37 @@
     Content body end
 ***********************************-->
 
+@endsection
+
+@section('js')
+<script>
+  $('#offer_type').on('change', function(){
+    val = $('#offer_type').val();
+
+    if (val == 'get') {
+      htmls = `<div class="form-group">
+                  <label>Buy *</label>
+                  <input type="text" class="form-control input-default" name="buy" required>
+              </div>
+              <div class="form-group">
+                  <label>Get *</label>
+                  <input type="text" class="form-control input-default" name="buy_get" required>
+              </div>`;
+      $('.offer').html(htmls);
+
+    } else if(val == 'offer') {
+      htmls = `<div class="form-group">
+                  <label>Buy *</label>
+                  <input type="text" class="form-control input-default" name="buy" required>
+              </div>
+              <div class="form-group">
+                  <label>Offer % *</label>
+                  <input type="text" class="form-control input-default" name="buy_offer" required>
+              </div>`;
+      $('.offer').html(htmls);
+    }else{
+      $('.offer').empty();
+    }
+  })
+</script>
 @endsection
