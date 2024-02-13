@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Logo</label>
-                                    <input type="file" class="form-control input-default" name="logo" required>
+                                    <input type="file" class="form-control input-default" name="logo">
                                     <img src="{{ asset($data->logo) }}" width="100px" alt="">
                                 </div>
                                 <div class="form-group">

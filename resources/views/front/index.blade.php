@@ -21,7 +21,7 @@
                             </p>
                             <div class="carousel-btn">
                                 <a class="btn custom-btn" href="{{ route('menu',[$slug]) }}">View Menu</a>
-                                <a class="btn custom-btn" href="{{ route('menu',[$slug]) }}">Book Table</a>
+                                <a class="btn custom-btn" href="{{ route('booking',[$slug]) }}">Book Table</a>
                             </div>
                         </div>
                     </div>
@@ -208,7 +208,7 @@
                             <p>
                                 Lorem ipsum dolor sit amet consec adipis elit. Phasel nec preti mi. Curabit facilis ornare velit non vulputa. Aliquam metus tortor, auctor id gravida condime, viverra quis sem. Curabit non nisl nec nisi sceleri maximus
                             </p>
-                            <a class="btn custom-btn" href="">Book A Table</a>
+                            <a class="btn custom-btn" href="{{ route('booking',[$slug]) }}">Book A Table</a>
                         </div>
                     </div>
                     <div class="col-lg-7">
