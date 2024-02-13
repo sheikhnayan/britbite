@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Sub Title</label>
-                                    <input type="text" value="{{ $item->sub_title }}" class="form-control input-default" placeholder="Enter Sub Title" name="sub_title" required>
+                                    <input type="text" value="{{ $data->sub_title }}" class="form-control input-default" placeholder="Enter Sub Title" name="sub_title" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Image</label>
