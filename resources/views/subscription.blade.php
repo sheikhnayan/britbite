@@ -110,7 +110,7 @@
     <script src="https://js.stripe.com/v3/"></script>
 
     <script>
-        key = $('#key').value;
+        key = $('#key').val();
         console.log(key);
 
         const stripe = Stripe(key)
