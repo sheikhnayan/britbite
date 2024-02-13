@@ -111,6 +111,8 @@
 
     <script>
         key = $('#key').value;
+        console.log(key);
+
         const stripe = Stripe(key)
 
 
