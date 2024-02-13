@@ -24,7 +24,7 @@
                     <div class="card-body">
                         <h4 class="card-title">Edit Banner</h4>
                         <div class="basic-form">
-                            <form action="{{ route('admin.banner.store',[$data->id]) }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.banner.update',[$data->id]) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label>Title</label>
