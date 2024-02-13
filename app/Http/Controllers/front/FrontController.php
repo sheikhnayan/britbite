@@ -54,12 +54,12 @@ class FrontController extends Controller
 
     public function booking($slug)
     {
-        $user = Setting::where('slug',$slug)->first();
+        $setting = Setting::where('slug',$slug)->first();
 
 
-        $user = $user->user;
+        $user = $setting->user;
 
-        return view('front.booking',compact('slug'));
+        return view('front.booking',compact('slug','setting'));
     }
 
     public function contact($slug)
