@@ -250,38 +250,39 @@
     </div>
 </div>
 </div>
-
-@php
-    $html = '';
-    foreach ($cart as $key => $c) {
-      if ($c['data']['buy_type'] == 'get') {
-        # code...
-        $offer = 'Buy%20'.$c['data']['buy'].'%20Get,%20'.$c['data']['buy_get'].'%20Free';
-      }else {
-        $offer = 'Buy%20'.$c['data']['buy'].'%20Get,%'.$c['data']['percentage'].'%20Off';
-      }
-    }
-
-      $attrs = '';
-
-      if ($c['attr'] != null) {
+@if (Session::get('cart'))
+  @php
+      $html = '';
+      foreach ($cart as $key => $c) {
+        if ($c['data']['buy_type'] == 'get') {
           # code...
-          $a = $c['attr']['name'].'%20+%20£'.$c['attr']['price'];
-
-          $attrs .= $a;
-
+          $offer = 'Buy%20'.$c['data']['buy'].'%20Get,%20'.$c['data']['buy_get'].'%20Free';
+        }else {
+          $offer = 'Buy%20'.$c['data']['buy'].'%20Get,%'.$c['data']['percentage'].'%20Off';
+        }
       }
 
+        $attrs = '';
 
-      $h = $c['quantity'].'%20x%20'.$c['name'].'%20('.$offer.')%20%20£'.$c['price'].'%0A'.$attrs;
+        if ($c['attr'] != null) {
+            # code...
+            $a = $c['attr']['name'].'%20+%20£'.$c['attr']['price'];
 
-      $html .= $h;
+            $attrs .= $a;
 
-      $total = '%0ASubtotal%20%20£'.array_sum(array_column($cart, 'price')) + $attr;
+        }
 
-      $html .= $total;
 
-@endphp
+        $h = $c['quantity'].'%20x%20'.$c['name'].'%20('.$offer.')%20%20£'.$c['price'].'%0A'.$attrs;
+
+        $html .= $h;
+
+        $total = '%0ASubtotal%20%20£'.array_sum(array_column($cart, 'price')) + $attr;
+
+        $html .= $total;
+
+  @endphp
+@endif
 <input type="hidden" id="cart" value="{{ $html }}">
 <div class="modal add-to-cart" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
