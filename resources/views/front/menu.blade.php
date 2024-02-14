@@ -283,7 +283,7 @@
 
   @endphp
 @endif
-<input type="hidden" id="cart" value="{{ $html }}">
+<input type="hidden" id="cart" value="{{ $html ?? null}}">
 <div class="modal add-to-cart" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
