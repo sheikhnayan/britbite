@@ -259,7 +259,7 @@
           # code...
           $offer = 'Buy%20'.$c['data']['buy'].'%20Get,%20'.$c['data']['buy_get'].'%20Free';
         }else {
-          $offer = 'Buy%20'.$c['data']['buy'].'%20Get,'.$percen.'.$c['data']['buy_offer'].'%20Off';
+          $offer = 'Buy%20'.$c['data']['buy'].'%20Get,'.$percen.''.$c['data']['buy_offer'].'%20Off';
         }
 
         $attrs = '';
