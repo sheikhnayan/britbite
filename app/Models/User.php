@@ -49,4 +49,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Offer::class,'user_id','id');
     }
+
+    public function setting()
+    {
+        return $this->hasOne(Setting::class,'user_id','id');
+    }
 }

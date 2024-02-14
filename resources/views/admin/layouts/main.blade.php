@@ -51,11 +51,12 @@
         ***********************************-->
         <div class="nav-header">
             <div class="brand-logo">
-                <a href="{{ route('admin.index') }}">
+                <a href="{{ route('index',[Auth::user()->setting->slug]) }}" target="_blank">
                     <b class="logo-abbr"><img src="{{ asset('admin/images/logo.png') }}" alt=""> </b>
-                    <span class="logo-compact"><img src="{{ asset('admin/images/logo-compact.png') }}" alt=""></span>
+                    <span class="logo-compact">
+                      <img src="{{ asset('admin/images/logo-compact.png') }}" alt=""></span>
                     <span class="brand-title">
-                        <img src="{{ asset('admin/images/logo-text.png') }}" width="90px">
+                        <h5>Visit Your Website</h5>
                     </span>
                 </a>
             </div>
