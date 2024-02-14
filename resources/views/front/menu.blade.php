@@ -260,7 +260,6 @@
         }else {
           $offer = 'Buy%20'.$c['data']['buy'].'%20Get,%'.$c['data']['percentage'].'%20Off';
         }
-      }
 
         $attrs = '';
 
@@ -272,11 +271,12 @@
 
         }
 
-      foreach ($cart as $key => $c) {
-        $h = $c['quantity'].'%20x%20'.$c['name'].'%20('.$offer.')%20%20£'.$c['price'].'%0A'.$attrs;
+        $h = $c['quantity'].'%20x%20'.$c['name'].'%20('.$offer.')%20%20£'.$c['price'].'%0A'.$attrs.'%0A';
 
         $html .= $h;
+
       }
+
 
         $total = '%0ASubtotal%20%20£'.array_sum(array_column($cart, 'price')) + $attr;
 
