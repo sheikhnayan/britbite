@@ -10,7 +10,9 @@ use App\Models\Page;
 use App\Models\Blog;
 use App\Models\FoodCategory;
 use App\Models\Menu;
+use App\Models\FoodAttribute;
 use App\Models\Setting;
+use Session;
 
 class FrontController extends Controller
 {
@@ -84,16 +86,103 @@ class FrontController extends Controller
 
     public function menu($slug)
     {
-        $user = Setting::where('slug',$slug)->first();
+        $setting = Setting::where('slug',$slug)->first();
 
 
-        $user = $user->user;
+        $user = $setting->user;
 
         $category = FoodCategory::where('user_id',$user->id)->get();
 
         $menu = Menu::where('user_id',$user->id)->get();
 
-        return view('front.menu',compact('slug','menu','category'));
+        return view('front.menu',compact('slug','menu','category','setting'));
+    }
+
+    public function cart($id)
+    {
+        $data = Menu::with('attribute')->find($id);
+
+        return $data;
+    }
+
+    public function add_to_cart(Request $request)
+    {
+        $item = Menu::findOrFail($request->menu_id);
+
+        if ($item->user->offer) {
+            # code...
+            if ($item->user->offer->status == 1) {
+                # code...
+                $price = ($item->price/100)*$item->user->offer->percentage;
+            } else {
+                # code...
+                $price = $item->price;
+            }
+
+        } else {
+            # code...
+            $price = $item->price;
+        }
+
+        if (isset($request->attr)) {
+            # code...
+            $attr = FoodAttribute::find($request->attr);
+        }else {
+            $attr = null;
+        }
+
+
+        $cart = session()->get('cart', []);
+
+
+
+        if(isset($cart[$request->menu_id])) {
+
+            $cart[$request->menu_id]['quantity']++;
+            $cart[$request->menu_id]['price'] = $cart[$request->menu_id]['price'] + $cart[$request->menu_id]['price'];
+
+        } else {
+
+            $cart[$request->menu_id] = [
+
+                "name" => $item->name,
+
+                "data" => $item,
+
+                "quantity" => 1,
+
+                "price" => $price,
+
+                "attr" => $attr,
+
+            ];
+
+        }
+
+
+
+        session()->put('cart', $cart);
+
+        return redirect()->back();
+    }
+
+
+    public function remove_from_cart($id)
+    {
+
+            $cart = session()->get('cart');
+
+            if(isset($cart[$id])) {
+
+                unset($cart[$id]);
+
+                session()->put('cart', $cart);
+
+            }
+
+            return redirect()->back();
+
+
     }
 
     public function single($slug,$id)

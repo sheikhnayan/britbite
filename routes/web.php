@@ -6,6 +6,7 @@ use App\Http\Controllers\front\FrontController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\TeamController;
 use App\Http\Controllers\admin\BannerController;
+use App\Http\Controllers\admin\OfferController;
 use App\Http\Controllers\admin\SettingController;
 use App\Http\Controllers\admin\FoodCategoryController;
 use App\Http\Controllers\admin\MenuController;
@@ -30,17 +31,21 @@ Route::middleware("auth")->group(function () {
     Route::post('subscription', [PlanController::class, 'subscription'])->name("subscription.create");
 });
 
+Route::get('/cart/{id}', [FrontController::class,'cart']);
+Route::post('/add-to-cart', [FrontController::class,'add_to_cart'])->name('add-to-cart');
+Route::get('/remove-from-cart/{id}', [FrontController::class,'remove_from_cart']);
+
 Route::prefix('/')->group(function () {
     Route::get('/home/{slug}',[FrontController::class,'index'])->name('index');
-    Route::get('/{slug}/about',[FrontController::class,'about'])->name('about');
-    Route::get('/{slug}/blog',[FrontController::class,'blog'])->name('blog');
-    Route::get('/{slug}/booking',[FrontController::class,'booking'])->name('booking');
-    Route::get('/{slug}/contact',[FrontController::class,'contact'])->name('contact');
-    Route::get('/{slug}/feature',[FrontController::class,'feature'])->name('feature');
-    Route::get('/{slug}/menu',[FrontController::class,'menu'])->name('menu');
-    Route::get('/{slug}/single/{id}',[FrontController::class,'single'])->name('single');
-    Route::get('/{slug}/page{title}',[FrontController::class,'page'])->name('page');
-    Route::get('/{slug}/team',[FrontController::class,'team'])->name('team');
+    Route::get('/home/{slug}/about',[FrontController::class,'about'])->name('about');
+    Route::get('/home/{slug}/blog',[FrontController::class,'blog'])->name('blog');
+    Route::get('/home/{slug}/booking',[FrontController::class,'booking'])->name('booking');
+    Route::get('/home/{slug}/contact',[FrontController::class,'contact'])->name('contact');
+    Route::get('/home/{slug}/feature',[FrontController::class,'feature'])->name('feature');
+    Route::get('/home/{slug}/menu',[FrontController::class,'menu'])->name('menu');
+    Route::get('/home/{slug}/single/{id}',[FrontController::class,'single'])->name('single');
+    Route::get('/home/{slug}/page{title}',[FrontController::class,'page'])->name('page');
+    Route::get('/home/{slug}/team',[FrontController::class,'team'])->name('team');
 });
 
 Route::prefix('/admins')->name('admin.')->middleware(['auth','admin'])->group(function () {
@@ -77,6 +82,15 @@ Route::prefix('/admins')->name('admin.')->middleware(['auth','admin'])->group(fu
         Route::get('/edit/{id}',[BannerController::class,'edit'])->name('edit');
         Route::post('/update/{id}',[BannerController::class,'update'])->name('update');
         Route::get('/delete/{id}',[BannerController::class,'destroy'])->name('delete');
+    });
+
+    Route::prefix('/offer')->name('offer.')->group(function () {
+        Route::get('/',[OfferController::class,'index'])->name('index');
+        Route::get('/add',[OfferController::class,'create'])->name('add');
+        Route::post('/store',[OfferController::class,'store'])->name('store');
+        Route::get('/edit/{id}',[OfferController::class,'edit'])->name('edit');
+        Route::post('/update/{id}',[OfferController::class,'update'])->name('update');
+        Route::get('/delete/{id}',[OfferController::class,'destroy'])->name('delete');
     });
 
     Route::prefix('/setting')->name('setting.')->group(function () {

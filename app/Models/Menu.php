@@ -13,4 +13,14 @@ class Menu extends Model
     {
         return $this->belongsTo(FoodCategory::class,'food_category_id','id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id','id');
+    }
+
+    public function attribute()
+    {
+        return $this->hasMany(FoodAttribute::class,'menu_id','id');
+    }
 }
