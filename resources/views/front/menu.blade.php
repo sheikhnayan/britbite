@@ -340,7 +340,7 @@
 @section('script')
   <script>
     $('.menu-section-item').on('click', function(){
-      id = $('.menu-section-item').data('id');
+      id = $(this).data('id');
 
       $.ajax({
           url: "/cart/"+id,
