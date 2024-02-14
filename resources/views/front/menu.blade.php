@@ -252,7 +252,7 @@
 </div>
 @if (Session::get('cart'))
   @php
-      $html = '';
+      $html = 'Order%20details:%0A%0A..........................%0A';
       foreach ($cart as $key => $c) {
         if ($c['data']['buy_type'] == 'get') {
           # code...
@@ -271,7 +271,7 @@
 
         }
 
-        $h = $c['quantity'].'%20x%20'.$c['name'].'%20('.$offer.')%20%20£'.$c['price'].'%0A'.$attrs.'%0A';
+        $h = $c['quantity'].'%20x%20'.$c['name'].'%20('.$offer.')%20%20£'.$c['price'].'%0A'.$attrs.'%0A%0A';
 
         $html .= $h;
 
@@ -280,7 +280,7 @@
 
         $total = '%0ASubtotal%20%20£'.array_sum(array_column($cart, 'price')) + $attr;
 
-        $html .= $total;
+        $html .= $total.'%0A%0A';
 
   @endphp
 @endif
@@ -389,7 +389,7 @@
 
       // console.log(value);
 
-      window.open('https://wa.me/'+phone+'?text='+value+'%0AName:%20'+name+'%0AMobile:%20'+mobile, '_blank')
+      window.open('https://wa.me/'+phone+'?text='+value+'%0ACustomer%20Details:%0A%0AName:%20'+name+'%0AMobile:%20'+mobile, '_blank')
 
       // window.location.href = 'https://wa.me/8801980265838?text=Name:%20'+name+'%0AEmail:%20'+email+'%0AMobile:%20'+mobile+'%0ADate:%20'+date+'%0ATime:%20'+time+'%0AGuest:%20'+guest;
 
