@@ -134,7 +134,7 @@
                                                       @endphp
                                                       @if ($offer)
                                                       @if ($offer->status == 1)
-                                                      £{{ ($item->price/100)*$offer->percentage }}
+                                                      £{{ ($item->price/100)*(100 - $offer->percentage) }}
                                                       <strike>£{{ $item->price }}</strike>
                                                       @else
                                                       £{{ $item->price }}
