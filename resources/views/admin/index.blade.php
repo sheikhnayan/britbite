@@ -281,6 +281,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Customers</th>
+                                                <th>Email</th>
                                                 <th>Plan</th>
                                                 <th>Name</th>
                                                 <th>Status</th>
@@ -294,6 +295,7 @@
                                           @foreach ($customer as $item)
                                           <tr>
                                               <td>{{ $item->name }}</td>
+                                              <td>{{ $item->email }}</td>
                                               <td>
                                                 @php
                                                     $plan = DB::table('subscriptions')->where('user_id',$item->id)->latest()->first();

@@ -66,7 +66,7 @@
                 <span class="logo-compact">
                   <img src="{{ asset('admin/images/logo-compact.png') }}" alt=""></span>
                 <span class="brand-title">
-                  <img src="{{ asset('admin/images/logo.png') }}" alt="">
+                  <img src="{{ asset('admin/images/logo.png') }}" width="200px">
                 </span>
               </a>
               @endif
