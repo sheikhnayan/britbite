@@ -113,16 +113,18 @@ class FrontController extends Controller
             # code...
             if ($item->user->offer->status == 1) {
                 # code...
-                $price = ($item->price/100)*(100 - $item->user->offer->percentage);
+                $offer = $item->user->offer->percentage;
             } else {
                 # code...
-                $price = $item->price;
+                $offer = 0;
             }
 
         } else {
             # code...
-            $price = $item->price;
+            $offer = 0;
         }
+
+        $price = $item->price;
 
         if (isset($request->attr)) {
             # code...
@@ -152,6 +154,8 @@ class FrontController extends Controller
                 "quantity" => 1,
 
                 "price" => $price,
+
+                "offer" => $offer,
 
                 "attr" => $attr,
 
@@ -183,6 +187,15 @@ class FrontController extends Controller
             return redirect()->back();
 
 
+    }
+
+    public function remove_cart()
+    {
+        $cart = Session::forget('cart');
+
+        $data['text'] = 'completed';
+
+        return $data;
     }
 
     public function single($slug,$id)

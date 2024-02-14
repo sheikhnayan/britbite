@@ -34,6 +34,7 @@ Route::middleware("auth")->group(function () {
 Route::get('/cart/{id}', [FrontController::class,'cart']);
 Route::post('/add-to-cart', [FrontController::class,'add_to_cart'])->name('add-to-cart');
 Route::get('/remove-from-cart/{id}', [FrontController::class,'remove_from_cart']);
+Route::get('/remove-cart', [FrontController::class,'remove_cart']);
 
 Route::prefix('/')->group(function () {
     Route::get('/home/{slug}',[FrontController::class,'index'])->name('index');

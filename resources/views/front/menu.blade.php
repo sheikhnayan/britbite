@@ -252,7 +252,7 @@
 </div>
 @if (Session::get('cart'))
   @php
-      $html = 'Order%20details:%0A%0A..........................%0A';
+      $html = 'Order%20details:%0A%0A..........................%0A%0A';
       foreach ($cart as $key => $c) {
         if ($c['data']['buy_type'] == 'get') {
           # code...
@@ -271,16 +271,41 @@
 
         }
 
+
         $h = $c['quantity'].'%20x%20'.$c['name'].'%20('.$offer.')%20%20£'.$c['price'].'%0A'.$attrs.'%0A%0A';
 
         $html .= $h;
 
       }
 
+        if ($setting->user->offer) {
+          # code...
+          if ($setting->user->offer->status == 1) {
+            # code...
+            $now = \Carbon\Carbon::now()->format('Y-m-d');
+            $now = \Carbon\Carbon::parse($now);
+            $start = \Carbon\Carbon::parse($setting->user->offer->start_date);
+            $end = \Carbon\Carbon::parse($setting->user->offer->end_date);
+            if($now->gte($start) & $now->lte($end)){
+                // edited at is newer than created at
+                $discount = '%0ADiscount(%20Percentage%20)%20%20'.$setting->user->offer->percentage.'%0A';
+                $html .= $discount.'%0A%0A';
+                $total = 'Subtotal%20%20£'.((array_sum(array_column($cart, 'price')) + $attr)/100)*(100 - $setting->user->offer->percentage);
+            }else {
+              # code...
+              $total = 'Subtotal%20%20£'.array_sum(array_column($cart, 'price')) + $attr;
+            }
+          }else {
+            # code...
+            $total = 'Subtotal%20%20£'.array_sum(array_column($cart, 'price')) + $attr;
+          }
+        }else {
+          # code...
+          $total = 'Subtotal%20%20£'.array_sum(array_column($cart, 'price')) + $attr;
+        }
 
-        $total = '%0ASubtotal%20%20£'.array_sum(array_column($cart, 'price')) + $attr;
 
-        $html .= $total.'%0A%0A';
+        $html .= $total.'%0A';
 
   @endphp
 @endif
@@ -389,9 +414,17 @@
 
       // console.log(value);
 
-      window.open('https://wa.me/'+phone+'?text='+value+'%0ACustomer%20Details:%0A%0AName:%20'+name+'%0AMobile:%20'+mobile, '_blank')
+      // window.open('https://wa.me/'+phone+'?text='+value+'%0ACustomer%20Details:%0A%0AName:%20'+name+'%0AMobile:%20'+mobile, '_blank')
 
-      // window.location.href = 'https://wa.me/8801980265838?text=Name:%20'+name+'%0AEmail:%20'+email+'%0AMobile:%20'+mobile+'%0ADate:%20'+date+'%0ATime:%20'+time+'%0AGuest:%20'+guest;
+      $.ajax({
+          url: "/remove-cart",
+          type: 'GET',
+          dataType: 'json', // added data type
+          success: function(res) {
+            window.open('https://wa.me/'+phone+'?text='+value+'%0ACustomer%20Details:%0A%0AName:%20'+name+'%0AMobile:%20'+mobile, '_blank')
+            // location.reload();
+          }
+      });
 
       return false;
     });
