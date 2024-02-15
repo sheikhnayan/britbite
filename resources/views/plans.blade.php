@@ -36,7 +36,7 @@
 
                                         <div class="card-header">
 
-                                            ${{ $plan->price }}/Mo
+                                            £{{ $plan->price }}/Mo
 
                                         </div>
 
