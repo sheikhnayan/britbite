@@ -256,9 +256,9 @@
       foreach ($cart as $key => $c) {
         if ($c['data']['buy_type'] == 'get') {
           # code...
-          $offer = 'Buy%20'.$c['data']['buy'].'%20Get,%20'.$c['data']['buy_get'].'%20Free';
+          $offer = '(Buy%20'.$c['data']['buy'].'%20Get,%20'.$c['data']['buy_get'].'%20Free)';
         }elseif($c['data']['buy_type'] == 'offer') {
-          $offer = 'Buy%20'.$c['data']['buy'].'%20Get,'.$c['data']['buy_offer'].'%20Precent%20Off';
+          $offer = '(Buy%20'.$c['data']['buy'].'%20Get,'.$c['data']['buy_offer'].'%20Precent%20Off)';
         }else{
           $offer = '';
         }
@@ -274,7 +274,7 @@
         }
 
 
-        $h = $c['quantity'].'%20x%20'.$c['name'].'%20('.$offer.')%20%20£'.$c['price'].'%0A'.$attrs.'%0A%0A';
+        $h = $c['quantity'].'%20x%20'.$c['name'].'%20'.$offer.'%20%20£'.$c['price'].'%0A'.$attrs.'%0A%0A';
 
         $html .= $h;
 

@@ -27,6 +27,21 @@
                         </a>
                     </li>
                     <li>
+                      <a href="{{ route('admin.menu.offer') }}" aria-expanded="false">
+                          <span class="nav-text">Offer</span>
+                      </a>
+                  </li>
+                  <li>
+                    <a href="{{ route('admin.menu.pages') }}" aria-expanded="false">
+                        <span class="nav-text">Page</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{ route('admin.menu.blogs') }}" aria-expanded="false">
+                        <span class="nav-text">Blog</span>
+                    </a>
+                  </li>
+                    <li>
                         <a href="{{ route('admin.banner.index') }}" aria-expanded="false">
                             <span class="nav-text">Banner</span>
                         </a>

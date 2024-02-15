@@ -47,6 +47,7 @@ class PlanController extends Controller
         $plan = Plan::find($request->plan);
 
         $subscription = $request->user()->newSubscription($request->plan, $plan->stripe_plan)
+                        ->trialDays(1)
                         ->create($request->token);
 
         return redirect(route('admin.index'));
