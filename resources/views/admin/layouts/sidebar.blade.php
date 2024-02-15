@@ -32,12 +32,12 @@
                       </a>
                   </li>
                   <li>
-                    <a href="{{ route('admin.menu.pages') }}" aria-expanded="false">
+                    <a href="{{ route('admin.page.index') }}" aria-expanded="false">
                         <span class="nav-text">Page</span>
                     </a>
                   </li>
                   <li>
-                    <a href="{{ route('admin.menu.blogs') }}" aria-expanded="false">
+                    <a href="{{ route('admin.blog.index') }}" aria-expanded="false">
                         <span class="nav-text">Blog</span>
                     </a>
                   </li>
