@@ -27,7 +27,7 @@
                         </a>
                     </li>
                     <li>
-                      <a href="{{ route('admin.menu.offer') }}" aria-expanded="false">
+                      <a href="{{ route('admin.offer.index') }}" aria-expanded="false">
                           <span class="nav-text">Offer</span>
                       </a>
                   </li>
